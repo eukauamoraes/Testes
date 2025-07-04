@@ -48,9 +48,19 @@ namespace PlaygroundTeste
             Assert.Equal(0.00m, resultado);
 
         }
-        public void CalcularJurosnegativos()
-        {
 
+        [Fact]
+        public void TestCalcularJurosCompostosCapitalnegativo()
+        {
+            decimal capitalInicial = -100m;
+            decimal taxaJurosMensal = 0.01m;
+            int periodoMeses = 12;
+
+           var excecao = Assert.Throws<ArgumentOutOfRangeException>(() =>
+               _calculadoraFinanceira.CalcularJurosCompostos(capitalInicial, taxaJurosMensal, periodoMeses)
+            );
+
+            Assert.Contains("capital", excecao.Message);
         }
     }
 }
